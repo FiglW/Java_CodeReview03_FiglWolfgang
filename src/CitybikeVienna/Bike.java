@@ -58,11 +58,9 @@ public class Bike {
 
     @Override
     public String toString() {
-        return "Bike{" +
-                "bikeID=" + bikeID +
-                ", brand='" + brand + '\'' +
-                ", color='" + color + '\'' +
-                ", state='" + state + '\'' +
-                '}';
+        return "\nbikeID=" + bikeID +
+                ", brand='" + brand  +
+                ", color='" + color  +
+                ", state='" + state;
     }
 }

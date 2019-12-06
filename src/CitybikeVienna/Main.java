@@ -10,8 +10,8 @@ public class Main {
         Bike b1 = new Bike("Simplon","red","CanbeRented");
         Bike b2 = new Bike("Scott","blue","CanbeRented");
         Bike b3 = new Bike("Rotwild","yellow","CanbeRented");
-        Bike b4 = new Bike("Focus","black","InService");
-        Bike b5 = new Bike("Cannondale","grey","Discarded");
+        Bike b4 = new Bike("Focus","black","CanbeRented");
+        Bike b5 = new Bike("Cannondale","grey","CanbeRented");
         Bike b6 = new Bike("Canyon","white","CanbeRented");
         Bike b7 = new Bike("Stevens","orange","CanbeRented");
         Bike b8 = new Bike("Giant","darkblue","CanbeRented");
@@ -51,12 +51,14 @@ public class Main {
         hmStation.get(1).addBike(hmBike.get(1));
         hmStation.get(1).addBike(hmBike.get(2));
         hmStation.get(1).addBike(hmBike.get(3));
+        System.out.println("In der Station "+ s1.getLocation() +" "+ "sind diese Bikes verfügbar"+ s1.getArrbikelist().toString());
 
         //Station 2
         hmStation.get(2).addBike(hmBike.get(4));
         hmStation.get(2).addBike(hmBike.get(5));
         hmStation.get(2).addBike(hmBike.get(6));
         hmStation.get(2).addBike(hmBike.get(7));
+        System.out.println("In der Station"+ s2.getLocation() +" "+ "sind diese Bikes verfügbar"+ s2.getArrbikelist().toString());
 
 
 
