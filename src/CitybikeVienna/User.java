@@ -1,64 +1,67 @@
 package CitybikeVienna;
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class User {
+
+    private static Integer counter = 1;
     private Integer userID;
-    private String name;
-    private String surname;
-    private Bike currentRentedBike;
-    private Rent rent = new Rent();
+    private String uFirstName;
+    private String uLastName;
+    private Integer currentlyRentedBike;
+    private Rent rent;
+    private ArrayList<Rent>rents = new ArrayList<>();
 
-    ArrayList<Rent> rents = new ArrayList<>();
+    public User (String uFirstName, String uLastName){
+        this.userID = counter++;
+        this.uFirstName = uFirstName;
+        this.uLastName = uLastName;
 
-    private static Integer idCount;
+    }
+    public User(){}
 
-    public User(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
 
-        idCount++;
-        this.userID = idCount;
+    public void rentABike(Integer bikeID){
+        if (Main.bikes.get(bikeID).getCheckStatus() == Bike.Status.CanBeRented){
+            Main.checkStation(bikeID);
+            this.currentlyRentedBike = bikeID;
+            GregorianCalendar today = (GregorianCalendar) Calendar.getInstance();
+            this.rent = new Rent(bikeID, today);
+            this.rents.add(this.rent);
+        }else {
+            System.out.println("Sorry Dude this Bike cant be rented!!!");
+        }
     }
 
-    public String getName() {
-        return name;
+    public Integer getCurrentlyRentedBike() {
+        return currentlyRentedBike;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCurrentlyRentedBike(Integer currentlyRentedBike) {
+        this.currentlyRentedBike = currentlyRentedBike;
     }
 
-    public String getSurname() {
-        return surname;
+    public Integer getUserID() {
+        return userID;
+    }
+    public void removeBike(Integer bikeID){
+        this.rent.setRentEnd();
+        this.currentlyRentedBike = null;
+    }
+    public void allBikesRentedByUser(){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("kk:mm dd.MM.yyyy");
+        String printName = this.uFirstName +" "+ this.uLastName;
+        System.out.printf("%S" + "%17s" + "%28s%n", printName, "Start", "End");
+        System.out.println("*************************************************************************");
+        for (Rent rent :rents){
+            System.out.printf("Bike" + "%2S" + "%34S" + "%30S%n", rent.getBikeID(), sdf.format(rent.getRentStart().getTime()), sdf.format(rent.getRentEnd().getTime()));
+        }
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
-    public Bike getCurrentRentedBike() {
-        return currentRentedBike;
-    }
-
-    public void setCurrentRentedBike(Bike currentRentedBike) {
-        this.currentRentedBike = currentRentedBike;
-    }
-
-    public Rent getRent() {
-        return rent;
-    }
-
-    public void setRent(Rent rent) {
-        this.rent = rent;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                '}';
-    }
 }

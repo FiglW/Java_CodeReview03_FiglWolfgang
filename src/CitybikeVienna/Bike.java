@@ -5,62 +5,32 @@ public class Bike {
     private Integer bikeID;
     private String brand;
     private String color;
-    private String state;
+    private Status checkStatus;
+    private static Integer counter = 1;
+    public enum Status{
+        CanBeRented,
+        CanNotBeRented,
+        InService,
+        Discarded;
+    }
 
-
-    // try with static count
-    public static Integer idCount = 0;
-
-
-    //Constructor
-
-
-    public Bike(String brand, String color, String state) {
-        this.brand = brand;
+    Bike(String brand, String color,Status checkStatus){
+        this.bikeID = counter++;
         this.color = color;
-        this.state = state;
+        this.checkStatus = checkStatus;
 
-        idCount++;
-        this.setBikeID(idCount);
+
+
     }
 
-    public Integer getBikeID() {
-        return bikeID;
+    public int getBikeID(){
+        return this.bikeID;
+
     }
 
-    public void setBikeID(Integer bikeID) {
-        this.bikeID = bikeID;
-    }
 
-    public String getBrand() {
-        return brand;
-    }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return "\nbikeID=" + bikeID +
-                ", brand='" + brand  +
-                ", color='" + color  +
-                ", state='" + state;
+    public Status getCheckStatus() {
+        return checkStatus;
     }
 }

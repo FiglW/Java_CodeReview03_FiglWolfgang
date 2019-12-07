@@ -4,60 +4,47 @@ import java.util.ArrayList;
 
 public class Station {
 
-    private Integer statID;
+    private static int counter = 1;
+    private Integer stationID;
     private String location;
+    private ArrayList<Integer> bikes;
 
-    ArrayList<Bike> arrbikelist = new ArrayList<>();
-
-    private static int idCount;
-
-    public Station(String location){
+    Station(String location){
+        this.stationID = counter++;
         this.location = location;
-
-        idCount++;
-        this.statID = idCount;
-
+        this.bikes = new ArrayList<>();
     }
 
-    public Integer getStatID() {
-        return statID;
+    public Station(){
+        //check status
     }
 
-    public void setStatID(Integer statID) {
-        this.statID = statID;
+    public Integer getStationID() {
+        return stationID;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    //add bikes to the station
+    public void addBike(Integer bikeID){
+        this.bikes.add(bikeID);
+    }
+    //remove bike from station
+    public void removeBike(Integer bikeID){
+        this.bikes.remove(bikeID);
     }
 
-
-
-    public ArrayList<Bike> getArrbikelist() {
-        return arrbikelist;
+    public ArrayList<Integer> getBikes(){
+        return this.bikes;
     }
-
-    public void setArrbikelist(ArrayList<Bike> arrbikelist) {
-        this.arrbikelist = arrbikelist;
+    public void returnBike(Integer bikeID){
+        if (this.bikes.size() < 5) {
+            addBike(bikeID);
+            Main.checkWhichUser(bikeID);
+        }else {
+            System.out.println("Sorry Dude this station is full!!!");
+        }
     }
-
-    // method add Bike
-    public void addBike(Bike bike){
-        if (this.getArrbikelist().size() == 4){
-            System.out.println("Station: "+ this.getLocation() + "sorry dude, it's full");
-        }else
-            this.getArrbikelist().add(bike);
-
-    }
-
-    //method to remove the bike
-    public void removeBike(Bike bike){
-        this.getArrbikelist().remove(bike);
-    }
-
-
 }
